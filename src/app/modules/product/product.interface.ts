@@ -10,6 +10,7 @@ export type TInventory = {
 
 export type TProduct = {
   name: string;
+  normalizedName?: string;
   description: string;
   price: number;
   category: string;

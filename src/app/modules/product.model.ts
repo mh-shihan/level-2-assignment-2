@@ -29,6 +29,7 @@ const productSchema = new Schema<TProduct>({
     type: String,
     required: [true, 'Name is required'],
   },
+  normalizedName: { type: String, index: true },
   description: {
     type: String,
     required: [true, 'Description is required'],
@@ -65,6 +66,12 @@ const productSchema = new Schema<TProduct>({
       message: 'Inventory must be provided',
     },
   },
+});
+
+// Auto-generate normalizedName
+productSchema.pre('save', function (next) {
+  this.normalizedName = this.name.replace(/\s+/g, '').toLowerCase();
+  next();
 });
 
 export const Product = mongoose.model('Product', productSchema);
