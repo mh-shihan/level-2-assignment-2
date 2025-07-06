@@ -1,5 +1,6 @@
 import { Product } from '../product.model';
 import { TProduct } from './product.interface';
+import { PartialDeep } from 'type-fest';
 
 const createProductIntoDB = async (productData: TProduct) => {
   const result = await Product.create(productData);
@@ -16,8 +17,22 @@ const getSpecificProductFromDB = async (productId: string) => {
   return result;
 };
 
+const updateProductInDB = async (
+  id: string,
+  updateData: PartialDeep<TProduct>,
+) => {
+  const result = await Product.findByIdAndUpdate(
+    id,
+    { $set: updateData },
+    { new: true, runValidators: true },
+  );
+
+  return result;
+};
+
 export const ProductServices = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSpecificProductFromDB,
+  updateProductInDB,
 };
