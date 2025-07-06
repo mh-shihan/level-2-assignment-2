@@ -47,7 +47,29 @@ const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
+const getSpecificProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await ProductServices.getSpecificProductFromDB(productId);
+    if (result) {
+      res.status(200).json({
+        success: true,
+        message: 'Product fetched successfully!',
+        data: result,
+      });
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message || 'Something went wrong',
+      error: error,
+    });
+  }
+};
+
 export const productController = {
   createProduct,
   getAllProducts,
+  getSpecificProduct,
 };
