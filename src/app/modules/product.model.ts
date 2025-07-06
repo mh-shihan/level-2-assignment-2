@@ -35,7 +35,7 @@ const productSchema = new Schema<TProduct>({
   },
   price: {
     type: Number,
-    require: [true, 'Price is required'],
+    required: [true, 'Price is required'],
   },
   category: {
     type: String,
