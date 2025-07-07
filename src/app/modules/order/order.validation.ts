@@ -6,6 +6,8 @@ export const orderValidationSchema = z.object({
     .string()
     .min(1, { message: 'Product Id is required' })
     .nonempty({ message: 'Product Id is required' }),
-  price: z.number({ error: 'Quantity is required' }),
-  quantity: z.number({ error: 'Quantity is required' }),
+  price: z.number().min(0, 'Price must be positive'),
+  quantity: z
+    .number({ error: 'Quantity is required' })
+    .min(0, { message: 'Quantity can not be less than 0' }),
 });
