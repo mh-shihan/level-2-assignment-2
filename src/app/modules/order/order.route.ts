@@ -1,23 +1,7 @@
-import mongoose, { Schema } from 'mongoose';
-import { TOrder } from './order.interface';
+import express from 'express';
+import { orderController } from './order.controller';
+const router = express.Router();
 
-const orderSchema = new Schema<TOrder>({
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-  },
-  productId: {
-    type: String,
-    required: [true, 'Product Id is required'],
-  },
-  price: {
-    type: Number,
-    required: [true, 'Price is required'],
-  },
-  quantity: {
-    type: Number,
-    required: [true, 'Quantity is required'],
-  },
-});
+router.post('/', orderController.createOrder);
 
-export const Order = mongoose.model('Order', orderSchema);
+export const OrderRoute = router;
